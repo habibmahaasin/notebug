@@ -5,19 +5,26 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 
-const AccordionList = () => {
+const AccordionList = (props) => {
+  const { title, children, id } = props;
   const [open, setOpen] = useState();
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
-  
+
   return (
-    <Accordion open={open === 1}>
-      <AccordionHeader onClick={() => handleOpen(1)}>
-        <h4 className="font-bold text-lg">What is Material Tailwind?</h4>
+    <Accordion
+      open={open === id}
+      className="mb-2 rounded-lg border border-teal-gray-200 px-4"
+    >
+      <AccordionHeader
+        onClick={() => handleOpen(id)}
+        className={`border-b-0 transition-colors ${
+          open === id ? "text-teal-500 hover:!text-teal-700" : ""
+        }`}
+      >
+        <h6 className="font-bold text-base text-md">{title}</h6>
       </AccordionHeader>
-      <AccordionBody>
-        We&apos;re not always in the position that we want to be at. We&apos;re
-        constantly growing. We&apos;re constantly making mistakes. We&apos;re
-        constantly trying to express ourselves and actualize our dreams.
+      <AccordionBody className="pt-0 text-base font-normal">
+        {children}
       </AccordionBody>
     </Accordion>
   );
