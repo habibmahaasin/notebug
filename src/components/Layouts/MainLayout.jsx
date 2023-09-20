@@ -8,16 +8,6 @@ const MainLayout = (props) => {
             <div className="container-mx-auto px-4 text-right text-white mt-1.5">
               <h4 className="font-bold text-lg">NOTE-BUG</h4>
             </div>
-            <div className="container-mx-auto px-4 text-right text-white mt-1.5">
-              <div className="flex justify-end gap-4">
-                <h4 className="bg-teal-600 px-4 py-1 rounded-full text-md">
-                  Notes
-                </h4>
-                <h4 className="bg-teal-600 px-4 py-1 rounded-full text-md">
-                  Archive
-                </h4>
-              </div>
-            </div>
           </div>
         </header>
         <main className="container mx-auto p-2">
