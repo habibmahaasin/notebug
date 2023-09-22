@@ -1,9 +1,6 @@
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-} from "@material-tailwind/react";
+import { Tabs, TabsHeader, TabsBody, Tab } from "@material-tailwind/react";
+import Input from "../Elements/Input";
+import Button from "../Elements/Button";
 
 const NoteList = (props) => {
   const { children } = props;
@@ -18,6 +15,13 @@ const NoteList = (props) => {
         </span>
       </div>
 
+      <div className="flex justify-between items-center mb-4 align-middle">
+        <Input formType="input" placeholder="Search" name="title" />
+        <Button style="ml-4 bg-teal-700 hover:bg-teal-800 text-sm text-white py-2 px-4 rounded">
+          Search
+        </Button>
+      </div>
+
       <Tabs value="notes" className="max-w-[40rem]">
         <TabsHeader
           className="bg-transparent mb-4"
@@ -28,15 +32,7 @@ const NoteList = (props) => {
           <Tab value="notes">Notes</Tab>
           <Tab value="archive">Archive</Tab>
         </TabsHeader>
-        <TabsBody
-          animate={{
-            initial: { y: 250 },
-            mount: { y: 0 },
-            unmount: { y: 250 },
-          }}
-        >
-          {children}
-        </TabsBody>
+        <TabsBody>{children}</TabsBody>
       </Tabs>
     </>
   );

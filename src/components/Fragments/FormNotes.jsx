@@ -44,7 +44,7 @@ const FormNotes = (props) => {
           style="bg-teal-700 hover:bg-teal-900 text-white py-2 px-8 rounded-full"
           // type="submit" 
           onClick= {handleBtn}
-        />
+        >Save</Button>
       </div>
     </form>
   );
