@@ -1,10 +1,15 @@
-import { Tabs, TabsHeader, TabsBody, Tab } from "@material-tailwind/react";
-import Input from "../Elements/Input";
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
 import Button from "../Elements/Button";
+import AccordionList from "../Elements/Accordion";
 
 const NoteList = (props) => {
-  const { children } = props;
-  if (!children) return console.log("NoteList: children is required");
+  const { children, notes, handleArchive, handleDelete } = props;
 
   return (
     <>
@@ -16,10 +21,7 @@ const NoteList = (props) => {
       </div>
 
       <div className="flex justify-between items-center mb-4 align-middle">
-        <Input formType="input" placeholder="Search" name="title" />
-        <Button style="ml-4 bg-teal-700 hover:bg-teal-800 text-sm text-white py-2 px-4 rounded">
-          Search
-        </Button>
+        {children}
       </div>
 
       <Tabs value="notes" className="max-w-[40rem]">
@@ -32,7 +34,38 @@ const NoteList = (props) => {
           <Tab value="notes">Notes</Tab>
           <Tab value="archive">Archive</Tab>
         </TabsHeader>
-        <TabsBody>{children}</TabsBody>
+        <TabsBody>
+          {notes?.map((note) => {
+            return (
+              <TabPanel
+                className="!p-0"
+                value={note.archived ? "archive" : "notes"}
+                key={note.id}
+              >
+                <AccordionList title={note.title} id={note.id}>
+                  <span className="text-xs text-gray-500 mb-2">
+                    Created : {note.createdAt}
+                  </span>
+                  <p className="text-sm text-gray-600">{note.body}</p>
+                  <div className="flex justify-end mt-2 gap-2">
+                    <Button
+                      style="bg-yellow-700 hover:bg-yellow-800 text-sm text-white py-1 px-4 rounded-full"
+                      onClick={() => handleArchive(note.id)}
+                    >
+                      {note.archived ? "Unarchive" : "Archive"}
+                    </Button>
+                    <Button
+                      style="bg-red-700 hover:bg-red-900 text-sm text-white py-1 px-4 rounded-full"
+                      onClick={() => handleDelete(note.id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </AccordionList>
+              </TabPanel>
+            );
+          })}
+        </TabsBody>
       </Tabs>
     </>
   );

@@ -1,10 +1,8 @@
 import MainLayout from "../components/Layouts/MainLayout";
 import FormNotes from "../components/Fragments/FormNotes";
 import NoteList from "../components/Fragments/NoteList";
-import AccordionList from "../components/Elements/Accordion";
-import { TabPanel } from "@material-tailwind/react";
 import { useState } from "react";
-import Button from "../components/Elements/Button";
+import Input from "../components/Elements/Input";
 
 const Notes = () => {
   const [notes, setNotes] = useState([
@@ -16,6 +14,8 @@ const Notes = () => {
       createdAt: "2022-04-14T04:27:34.572Z",
     },
   ]);
+
+  const [search, setSearch] = useState("");
 
   const handleSave = (title, body) => {
     if (!title || !body) return;
@@ -60,37 +60,17 @@ const Notes = () => {
       </div>
 
       <div className="min-h-[100px] p-2 mt-9">
-        <NoteList>
-          {notes.map((note) => {
-            return (
-              <TabPanel
-                className="!p-0"
-                value={note.archived ? "archive" : "notes"}
-                key={note.id}
-              >
-                <AccordionList title={note.title} id={note.id}>
-                  <span className="text-xs text-gray-500 mb-2">
-                    Created : {note.createdAt}
-                  </span>
-                  <p className="text-sm text-gray-600">{note.body}</p>
-                  <div className="flex justify-end mt-2 gap-2">
-                    <Button
-                      style="bg-yellow-700 hover:bg-yellow-800 text-sm text-white py-1 px-4 rounded-full"
-                      onClick={() => handleArchive(note.id)}
-                    >
-                      {note.archived ? "Unarchive" : "Archive"}
-                    </Button>
-                    <Button
-                      style="bg-red-700 hover:bg-red-900 text-sm text-white py-1 px-4 rounded-full"
-                      onClick={() => handleDelete(note.id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </AccordionList>
-              </TabPanel>
-            );
-          })}
+        <NoteList
+          notes={notes.filter((note) => note.title.toLowerCase().includes(search))}
+          handleArchive={handleArchive}
+          handleDelete={handleDelete}
+        >
+          <Input
+            formType="input"
+            placeholder="Search"
+            name="title"
+            handleChangeContent={(e) => setSearch(e.target.value)}
+          />
         </NoteList>
       </div>
     </MainLayout>
