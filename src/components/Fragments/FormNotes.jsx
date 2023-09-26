@@ -6,13 +6,20 @@ const FormNotes = (props) => {
   const { handleSave } = props;
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [length, setLength] = useState(50);
 
   const handleChangeContent = (e) => {
     setBody(e.target.value);
   }
 
   const handleChaneTitle = (e) => {
-    setTitle(e.target.value);
+    setLength(50 - e.target.value.length);
+    if (e.target.value.length >= 50) {
+      return;
+    } else {
+      setTitle(e.target.value);
+    }
+    
   }
 
   const handleBtn = () => {
@@ -31,6 +38,7 @@ const FormNotes = (props) => {
         value = {title}
         handleChangeContent = {handleChaneTitle}
       />
+      <p className="text-red-400 mt-2 font-sm">{length} Character Left</p>
       <Input 
         formType="textarea" 
         label="Note Content" 
