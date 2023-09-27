@@ -61,7 +61,8 @@ const Notes = () => {
 
       <div className="min-h-[100px] p-2 mt-9">
         <NoteList
-          notes={notes.filter((note) => note.title.toLowerCase().includes(search))}
+          notes={notes.filter((note) => note.title.toLowerCase().includes(search) && !note.archived)}
+          archived = {notes.filter((note) => note.title.toLowerCase().includes(search) && note.archived)}
           handleArchive={handleArchive}
           handleDelete={handleDelete}
         >

@@ -38,7 +38,7 @@ const FormNotes = (props) => {
         value = {title}
         handleChangeContent = {handleChaneTitle}
       />
-      <p className="text-red-400 mt-2 font-sm">{length} Character Left</p>
+      <p className="text-teal-600 mt-2 text-sm text-right">{length} Character Left</p>
       <Input 
         formType="textarea" 
         label="Note Content" 
@@ -50,7 +50,6 @@ const FormNotes = (props) => {
       <div className="mt-4 text-right">
         <Button 
           style="bg-teal-700 hover:bg-teal-900 text-white py-2 px-8 rounded-full"
-          // type="submit" 
           onClick= {handleBtn}
         >Save</Button>
       </div>
